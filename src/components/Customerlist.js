@@ -13,6 +13,7 @@ function Customerlist() {
     getCustomers();
   }, [])
 
+  //Get all customers from REST and set them to customers -state
   const getCustomers = () => {
     fetch('https://customerrest.herokuapp.com/api/customers')
     .then(response => response.json())
@@ -20,6 +21,7 @@ function Customerlist() {
     .catch(err => console.error(err))
   }
 
+  //Define columns for customers
   const columns = [
     { headerName: 'First name', field: 'firstname', sortable: true, filter: true, width: 150},
     { headerName: 'Last name', field: 'lastname', sortable: true, filter: true, width: 150},

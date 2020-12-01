@@ -14,6 +14,7 @@ function Trainingslist() {
     getTrainings();
   }, [])
 
+  // Get all trainings from REST and set them to trainings -state
   const getTrainings = () => {
     fetch('https://customerrest.herokuapp.com/gettrainings')
     .then(response => response.json())
@@ -21,6 +22,7 @@ function Trainingslist() {
     .catch(err => console.error(err))
   }
 
+  //Define columns for trainings
   const columns = [
     { headerName: 'Date', field: 'date', sortable: true, filter: true, valueFormatter: function (params) {
       return moment(params.value).format('MMM Do YYYY, h:mm a');
