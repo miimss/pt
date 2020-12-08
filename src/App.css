@@ -1,6 +1,5 @@
 .AppBar {
   text-align: center;
-  background: lightgreen;
 }
 
 .App-logo {
@@ -17,6 +16,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.add {
+  text-align: center;
 }
 
 

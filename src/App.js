@@ -8,10 +8,12 @@ import PersonIcon from '@material-ui/icons/Person';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import Typography from '@material-ui/core/Typography';
 import './App.css';
+import CustomersTrainings from './components/CustomersTrainings';
 
 
 function App() {
   const [page, setPage] = useState('customers');
+  const [customer, setCustomer] = useState({});
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -29,8 +31,9 @@ function App() {
         </Tabs>
       </AppBar>
 
-      {page === 'customers' && <Customerlist />}
+      {page === 'customers' && <Customerlist setPage={setPage} setCustomer={setCustomer}/>}
       {page === 'trainings' && <Trainingslist />}
+      {page === 'ctrainings' && <CustomersTrainings customer={customer}/>}
     </div>
     
   );
