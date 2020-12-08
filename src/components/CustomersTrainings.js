@@ -6,6 +6,12 @@ import moment from 'moment'
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddTraining from './AddTraining';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Barbell from '../images/tanko.jpg';
+
  
 function CustomersTrainings(props) {
   const [trainings, setTrainings] = useState([]);
@@ -38,7 +44,7 @@ function CustomersTrainings(props) {
       body: JSON.stringify(newTraining)      
     })
     .then(_ => gridRef.current.refreshCells({rowNodes: getTrainings()}))
-    .then(_ => setMsg('Training was added succesfully'))
+    .then(_ => setMsg('Training was added successfully'))
     .then(_ => setOpen(true))
     .catch(err => console.error(err))
   }
@@ -46,12 +52,12 @@ function CustomersTrainings(props) {
   // Delete selected training
   const deleteTraining = (link) => {
     console.log(link);
-    if (window.confirm('Are you sure?')) {
+    if (window.confirm('Are you sure you want to delete training?')) {
       fetch(link, {
         method: 'DELETE'
       })
       .then(_ => gridRef.current.refreshCells({rowNodes: getTrainings()}))
-      .then(_ => setMsg('Training was deleted succesfully'))
+      .then(_ => setMsg('Training was deleted successfully'))
       .then(_ => setOpen(true))
       .catch(err => console.error(err))
     }
@@ -80,32 +86,42 @@ function CustomersTrainings(props) {
 
   return (
     <div>
-      <div className="add">
-        <h2>{props.customer.data.firstname} {props.customer.data.lastname}</h2>
-        <AddTraining addTraining={addTraining} link={props.customer.data.links[0].href}/>
-      </div>
-      <div className="ag-theme-material" style={{height:'700px', width:'90%', margin:'auto'}}>
-        <AgGridReact
-          ref={gridRef}
-          suppressCellSelection={true}
-          onGridReady={ params => {
-            gridRef.current = params.api
-          }}
-          columnDefs={columns}
-          rowData={trainings}
-          pagination="true"
-          paginationPageSize="10"
-        >
-        </AgGridReact>
+      <Container fluid>
+        <Row>
+            <Col>
+              <div className="add">
+                <Row>
+                  <Col><h2>{props.customer.data.firstname} {props.customer.data.lastname}</h2></Col>
+                  <Col><AddTraining addTraining={addTraining} link={props.customer.data.links[0].href}/></Col>
+                </Row>
+              </div>
+              <div className="ag-theme-material" style={{height:'700px', width:'90%', margin:'auto'}}>
+                <AgGridReact
+                  ref={gridRef}
+                  suppressCellSelection={true}
+                  onGridReady={ params => {
+                    gridRef.current = params.api
+                  }}
+                  columnDefs={columns}
+                  rowData={trainings}
+                  pagination="true"
+                  paginationPageSize="10"
+                >
+                </AgGridReact>
 
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={closeSnackbar}
-          message={msg}
-        />
-      </div>
-        
+                <Snackbar
+                  open={open}
+                  autoHideDuration={3000}
+                  onClose={closeSnackbar}
+                  message={msg}
+                />
+              </div>
+            </Col>
+            <Col md={4}>
+              <Image src={Barbell} fluid alt="Barbell and weight discs"/>
+            </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

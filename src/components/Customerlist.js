@@ -35,7 +35,7 @@ function Customerlist(props) {
       body: JSON.stringify(newCustomer)      
     })
     .then(_ => gridRef.current.refreshCells({rowNodes: getCustomers()}))
-    .then(_ => setMsg('Customer was added succesfully'))
+    .then(_ => setMsg('Customer was added successfully'))
     .then(_ => setOpen(true))
     .catch(err => console.error(err))
   }
@@ -48,7 +48,7 @@ function Customerlist(props) {
       body: JSON.stringify(customer)      
     })
     .then(_ => gridRef.current.refreshCells({rowNodes: getCustomers()}))
-    .then(_ => setMsg('Customer was updated succesfully'))
+    .then(_ => setMsg('Customer was updated successfully'))
     .then(_ => setOpen(true))
     .catch(err => console.error(err))
   }

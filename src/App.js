@@ -9,6 +9,7 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import Typography from '@material-ui/core/Typography';
 import './App.css';
 import CustomersTrainings from './components/CustomersTrainings';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {

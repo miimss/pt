@@ -5,6 +5,11 @@ import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Weights from '../images/painot.jpg';
 
 function Trainingslist() {
   const [trainings, setTrainings] = useState([]);
@@ -37,7 +42,7 @@ function Trainingslist() {
         method: 'DELETE'
       })
       .then(_ => gridRef.current.refreshCells({rowNodes: getTrainings()}))
-      .then(_ => setMsg('Training was deleted succesfully'))
+      .then(_ => setMsg('Training was deleted successfully'))
       .then(_ => setOpen(true))
       .catch(err => console.error(err))
     }
@@ -48,10 +53,10 @@ function Trainingslist() {
     { headerName: 'Date', field: 'date', sortable: true, filter: true, valueFormatter: function (params) {
       return moment(params.value).format('MMM Do YYYY, h:mm a');
     }},
-    { headerName: 'Activity', field: 'activity', sortable: true, filter: true },
-    { headerName: 'Duration', field: 'duration', sortable: true, filter: true, valueFormatter: function (params) {
+    { headerName: 'Activity', field: 'activity', sortable: true, filter: true, width: '140' },
+    { headerName: 'Duration', field: 'duration', sortable: true, filter: true, width: '140', valueFormatter: function (params) {
       return params.value + ' min'; }},
-    { headerName: 'Customer', field:'customer', sortable: true, filter: true, valueFormatter: function (params) {
+    { headerName: 'Customer', field:'customer', sortable: true, filter: true, width: '150' , valueFormatter: function (params) {
       return params.value.firstname + ' ' + params.value.lastname;
     }},
     {
@@ -68,27 +73,36 @@ function Trainingslist() {
 
   return(
     <div>
-      <div className="ag-theme-material" style={{height:'700px', width:'90%', margin:'auto'}}>
-        <AgGridReact
-          ref={gridRef}
-          suppressCellSelection={true}
-          onGridReady={ params => {
-            gridRef.current = params.api
-          }}
-          columnDefs={columns}
-          rowData={trainings}
-          pagination="true"
-          paginationPageSize="10"
-        >
-        </AgGridReact>
+      <Container fluid>
+          <Row>
+            <Col md={4}>
+              <Image src={Weights} fluid alt="dumbbells on a rack"/>
+            </Col>
+            <Col>
+              <div className="ag-theme-material" style={{height:'700px', width:'90%', margin:'auto'}}>
+                <AgGridReact
+                  ref={gridRef}
+                  suppressCellSelection={true}
+                  onGridReady={ params => {
+                    gridRef.current = params.api
+                  }}
+                  columnDefs={columns}
+                  rowData={trainings}
+                  pagination="true"
+                  paginationPageSize="10"
+                >
+                </AgGridReact>
 
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={closeSnackbar}
-          message={msg}
-        />
-      </div>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={3000}
+                  onClose={closeSnackbar}
+                  message={msg}
+                />
+              </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
